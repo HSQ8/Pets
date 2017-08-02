@@ -19,6 +19,7 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -65,24 +66,25 @@ public class CatalogActivity extends AppCompatActivity {
     private void displayDatabaseInfo() {
         // To access our database, we instantiate our subclass of SQLiteOpenHelper
         // and pass the context, which is the current activity.
-        PetDBHelper mDbHelper = new PetDBHelper(this);
+
 
         // Create and/or open a database to read from it
-        SQLiteDatabase db = mDbHelper.getReadableDatabase();
+
 
         // Perform this raw SQL query "SELECT * FROM pets"
         // to get a Cursor that contains all rows from the pets table.
         String[] columns = {COLUMN_NAME_ID, COLUMN_NAME_NAME, COLUMN_NAME_BREED, COLUMN_NAME_GENDER, COLUMN_NAME_WEIGHT};
-        String[] selection;
-        String[] SelectionArgs;
-        Cursor cursor = db.query(TABLE_NAME, columns, null, null, null, null, null);
+
+        Uri uri = PetContract.PetEntry.CONTENT_URI;
+        Cursor cursor = getContentResolver().query( uri, columns,null,null,null);
+
         String names = "";
         while (cursor.moveToNext()) {
 
-            names += cursor.getInt(cursor.getColumnIndex(COLUMN_NAME_ID)) +
-                    cursor.getString(cursor.getColumnIndex(COLUMN_NAME_NAME)) +
-                    cursor.getString(cursor.getColumnIndex(COLUMN_NAME_BREED)) +
-                    cursor.getString(cursor.getColumnIndex(COLUMN_NAME_GENDER)) +
+            names += cursor.getInt(cursor.getColumnIndex(COLUMN_NAME_ID)) +"    |    "+
+                    cursor.getString(cursor.getColumnIndex(COLUMN_NAME_NAME)) +"    |    "+
+                    cursor.getString(cursor.getColumnIndex(COLUMN_NAME_BREED)) +"    |    "+
+                    cursor.getString(cursor.getColumnIndex(COLUMN_NAME_GENDER)) +"    |    "+
                     cursor.getInt(cursor.getColumnIndex(COLUMN_NAME_WEIGHT)) +
                     "\n";
         }
@@ -139,8 +141,9 @@ public class CatalogActivity extends AppCompatActivity {
     }
 
     private void insertPet() {
-        PetDBHelper dbHelper = new PetDBHelper(this);
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        Uri uri = PetContract.PetEntry.CONTENT_URI;
+
+
         ContentValues values = new ContentValues();
         //values.put(BaseColumns._ID, 1);
         values.put(PetContract.PetEntry.COLUMN_NAME_NAME, "Garfield");
@@ -148,7 +151,7 @@ public class CatalogActivity extends AppCompatActivity {
         values.put(PetContract.PetEntry.COLUMN_NAME_GENDER, PetContract.PetEntry.GENDER_MALE);
         values.put(PetContract.PetEntry.COLUMN_NAME_WEIGHT, 7);
 
-        db.insert(TABLE_NAME, null, values);
+        Uri newuri = getContentResolver().insert(uri,values);
         displayDatabaseInfo();
 
     }

@@ -20,9 +20,13 @@ public class PetDBHelper extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "Shelter";
     public static final int DATABASE_VERSION = 1;
 
-    private final String SQL_CREATE_ENTRY = "CREATE TABLE " + TABLE_NAME +
-            " (" + COLUMN_NAME_ID + " INTEGER AUTO_INCREMENT," + COLUMN_NAME_NAME + " TEXT," +
-            COLUMN_NAME_BREED + " TEXT," + COLUMN_NAME_GENDER + " INTEGER," + COLUMN_NAME_WEIGHT + " INTEGER);";
+    private final String SQL_CREATE_ENTRY = "CREATE TABLE " +
+            TABLE_NAME + " (" +
+            COLUMN_NAME_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+            COLUMN_NAME_NAME + " TEXT," +
+            COLUMN_NAME_BREED + " TEXT," +
+            COLUMN_NAME_GENDER + " INTEGER," +
+            COLUMN_NAME_WEIGHT + " INTEGER);";
 
     private static final String SQL_DELETE_ENTRIES =
             "DROP TABLE IF EXISTS " + DATABASE_NAME;
