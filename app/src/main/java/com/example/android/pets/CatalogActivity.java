@@ -42,6 +42,8 @@ import static com.example.android.pets.data.PetContract.PetEntry.COLUMN_NAME_WEI
  * Displays list of pets that were entered and stored in the app.
  */
 public class CatalogActivity extends AppCompatActivity {
+    //source for reference is here
+    //https://github.com/kkuan2011/Pets/blob/master/app/src/main/java/com/example/android/pets/CatalogActivity.java
     public final static String Intent_Name = "IntentName";
     public final static String Intent_Breed = "IntentBreed";
     public final static String Intent_Weight = "IntentWeight";
