@@ -180,7 +180,7 @@ public class PetProvider extends ContentProvider {
        // Get writeable database
        SQLiteDatabase database = mDBHelper.getWritableDatabase();
 
-       // Track the number of rows that were deleted
+       
        int rowsDeleted;
 
        final int match = sUriMatcher.match(uri);
